@@ -11,5 +11,7 @@ namespace EduApoyos.Domain.Entities
         public DateTime ChangeDate { get; set; }
         public required string UserId { get; set; }
         public string? Observation { get; set; }
+        public User? User { get; set; }
+        public RequestSupport? RequestSupport { get; set; }
     }
 }

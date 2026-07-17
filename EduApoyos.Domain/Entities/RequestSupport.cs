@@ -12,6 +12,8 @@ namespace EduApoyos.Domain.Entities
         public Status Status { get; set; }
         public DateTime ApplicationDate { get; set; }
         public DateTime? DateUpdated { get; set; }
-        public required string UserId { get; set; }
+        public required string AdvisorId { get; set; }
+        public Student? Student { get; set; }
+        public User? Advisor { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace EduApoyos.Domain.Entities
         public required string FullName { get; set; }
         public required string Email { get; set; }
         public required string PasswordHash { get; set; }
-        public required Rol Rol { get; set; }
+        public required Role Role { get; set; }
+        public DateTime DateRegistration { get; set; }
     }
 }

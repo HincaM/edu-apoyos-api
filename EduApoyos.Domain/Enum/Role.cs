@@ -1,6 +1,6 @@
 ﻿namespace EduApoyos.Domain.Enum
 {
-    public enum Rol
+    public enum Role
     {
         Advisor = 1,
         Student = 2
