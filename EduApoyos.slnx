@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="EduApoyos.Api/EduApoyos.Api.csproj" />
+  <Project Path="EduApoyos.Application/EduApoyos.Application.csproj" Id="4a9cefe8-c1da-4f12-812e-91a4017d3858" />
+  <Project Path="EduApoyos.Domain/EduApoyos.Domain.csproj" Id="d1bf814d-22cd-4384-9eeb-9a8dec0a9725" />
+  <Project Path="EduApoyos.Infrastructure/EduApoyos.Infrastructure.csproj" Id="6e513d2f-5b38-4157-ad35-a49bfb5dc66a" />
+</Solution>

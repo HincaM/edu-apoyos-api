@@ -1,0 +1,6 @@
+﻿namespace EduApoyos.Domain.Repositories
+{
+    public interface IRequestSupportRepository
+    {
+    }
+}
