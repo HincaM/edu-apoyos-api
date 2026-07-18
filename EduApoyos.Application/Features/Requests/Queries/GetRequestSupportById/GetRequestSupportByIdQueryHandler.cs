@@ -8,7 +8,7 @@ namespace EduApoyos.Application.Features.Requests.Queries.GetRequestSupportById
     {
         public async Task<ErrorOr<RequestSupportDto>> Handle(GetRequestSupportByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _requestSupportService.GetRequestSupportById(request.Id, cancellationToken);
+            var result = await _requestSupportService.GetRequestSupportById(request.Id, request.UserId, cancellationToken);
             if(result.IsError) return result.Errors;
 
             if(result.Value is null) return Error.NotFound("Consulta solicitud", "Solicitud no encontrada");

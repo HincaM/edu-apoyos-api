@@ -1,4 +1,5 @@
 ﻿using EduApoyos.Application.Common.Behaviours;
+using EduApoyos.Application.Common.Middlewares;
 using EduApoyos.Application.Helpers;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,7 @@ namespace EduApoyos.Application
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>))
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(ErrorOrBehaviour<,>))
                 .AddScoped<TokenGeneratorHelper>()
-    
+                .AddTransient<ExceptionMiddleware>()
                 ;
         }
     }

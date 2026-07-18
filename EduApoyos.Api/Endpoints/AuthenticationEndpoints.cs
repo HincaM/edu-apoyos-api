@@ -9,7 +9,7 @@ namespace EduApoyos.Api.Endpoints
     {
         public void Register(IEndpointRouteBuilder app)
         {
-            var group = app.MapGroup("api/auth").WithTags("Authentication");
+            var group = app.MapGroup("api/auth").WithTags("Authentication").AllowAnonymous();
 
             group.MapPost("login", Login);
             group.MapPost("register", UserRegister);

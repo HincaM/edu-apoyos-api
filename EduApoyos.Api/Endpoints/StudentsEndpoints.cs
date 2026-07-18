@@ -1,6 +1,7 @@
 ﻿using EduApoyos.Api.Helpers;
 using EduApoyos.Application.Features.Students.Commands.CreateStudent;
 using EduApoyos.Application.Features.Students.Queries.GetStudents;
+using EduApoyos.Domain.Common;
 using MediatR;
 
 namespace EduApoyos.Api.Endpoints
@@ -11,8 +12,8 @@ namespace EduApoyos.Api.Endpoints
         {
             var group = app.MapGroup("/api/students").WithTags("Students");
 
-            group.MapGet("/", GetStudents).RequireAuthorization();
-            group.MapPost("/", CreateStudent).RequireAuthorization();
+            group.MapGet("/", GetStudents).RequireAuthorization(RoleConstants.Advisor);
+            group.MapPost("/", CreateStudent).RequireAuthorization(RoleConstants.Advisor);
         }
 
         private static async Task<IResult> GetStudents(int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)

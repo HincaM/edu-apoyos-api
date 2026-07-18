@@ -4,8 +4,11 @@ using EduApoyos.Application.Features.Requests.Commands.CreateRequest;
 using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupport;
 using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupportByStudentId;
 using EduApoyos.Application.Features.Requests.Queries.GetRequestSupportById;
+using EduApoyos.Domain.Common;
 using EduApoyos.Domain.Common.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace EduApoyos.Api.Endpoints
 {
@@ -15,12 +18,12 @@ namespace EduApoyos.Api.Endpoints
         {
             var group = app.MapGroup("api/requests").WithTags("RequestsSupport");
 
-            group.MapGet("/", GetRequestsSupport).RequireAuthorization();
-            group.MapPost("/", CreateRequestSupport).RequireAuthorization();
-            group.MapGet("/{id}", GetRequestSupportById).RequireAuthorization();
-            group.MapPatch("/{id}/estado", ChangeStatusRequestSupport).RequireAuthorization();
+            group.MapGet("/", GetRequestsSupport).RequireAuthorization(new AuthorizeAttribute { Roles = RoleConstants.Advisor });
+            group.MapPost("/", CreateRequestSupport).RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" });
+            group.MapGet("/{id}", GetRequestSupportById).RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" });
+            group.MapPatch("/{id}/estado", ChangeStatusRequestSupport).RequireAuthorization(RoleConstants.Advisor);
 
-            app.MapGet("api/students/{id}/requests", GetRequestsSupportByStudentId).WithTags("RequestsSupport").RequireAuthorization();
+            app.MapGet("api/students/{id}/requests", GetRequestsSupportByStudentId).WithTags("RequestsSupport").RequireAuthorization(RoleConstants.Student);
         }
 
         private static async Task<IResult> GetRequestsSupport(Status? status, TypeSupport? type, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
@@ -29,8 +32,11 @@ namespace EduApoyos.Api.Endpoints
         private static async Task<IResult> CreateRequestSupport(CreateRequestSupportCommand command, IMediator sender, CancellationToken cancellationToken)
             => (await sender.Send(command, cancellationToken)).Match(Results.Ok, Problem);
 
-        private static async Task<IResult> GetRequestSupportById(int id, IMediator sender, CancellationToken cancellationToken)
-            => (await sender.Send(new GetRequestSupportByIdQuery(id), cancellationToken)).Match(Results.Ok, Problem);
+        private static async Task<IResult> GetRequestSupportById(int id, IMediator sender, CancellationToken cancellationToken, ClaimsPrincipal user)
+        {
+            var userId = user.IsInRole("Estudiante") ? user.FindFirst(ClaimTypes.NameIdentifier)?.Value : null;
+            return (await sender.Send(new GetRequestSupportByIdQuery(id, userId), cancellationToken)).Match(Results.Ok, Problem);
+        }
 
         private static async Task<IResult> ChangeStatusRequestSupport(int id, ChangeStatusRequestSupportCommand command, IMediator sender, CancellationToken cancellationToken)
         {

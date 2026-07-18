@@ -4,9 +4,9 @@ namespace EduApoyos.Domain.Common.Enums
 {
     public enum Role
     {
-        [Description("Asesor")]
+        [Description(RoleConstants.Advisor)]
         Advisor = 1,
-        [Description("Estudiante")]
+        [Description(RoleConstants.Student)]
         Student = 2
     }
 }
