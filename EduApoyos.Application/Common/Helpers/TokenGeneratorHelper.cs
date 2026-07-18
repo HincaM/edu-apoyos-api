@@ -1,4 +1,5 @@
-﻿using EduApoyos.Domain.Common.Enums;
+﻿using EduApoyos.Application.Extensions;
+using EduApoyos.Domain.Common.Enums;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

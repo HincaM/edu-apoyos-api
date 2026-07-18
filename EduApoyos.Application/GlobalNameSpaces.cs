@@ -1,6 +1,6 @@
 ﻿global using ErrorOr;
 global using MediatR;
-global using static EduApoyos.Application.Common.Exceptions.EnumExtensions;
+global using static EduApoyos.Application.Extensions.EnumExtensions;
 
 namespace EduApoyos.Application;
 

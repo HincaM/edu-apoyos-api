@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace EduApoyos.Application.Common.Exceptions
+namespace EduApoyos.Application.Extensions
 {
     public static class EnumExtensions
     {

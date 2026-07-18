@@ -1,4 +1,5 @@
-﻿using EduApoyos.Domain.Common.Enums;
+﻿using EduApoyos.Application.Extensions;
+using EduApoyos.Domain.Common.Enums;
 
 namespace EduApoyos.Application.Features.Requests.Queries.GetRequestsSupport
 {
