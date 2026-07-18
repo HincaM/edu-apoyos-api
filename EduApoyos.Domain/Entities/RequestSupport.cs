@@ -4,6 +4,20 @@ namespace EduApoyos.Domain.Entities
 {
     public class RequestSupport
     {
+        private RequestSupport() { }
+
+        public static RequestSupport Create(int studentId, TypeSupport typeSupport, double requestedAmount, string description, string advisorId)
+            => new()
+            {
+                StudentId = studentId,
+                TypeSupport = typeSupport,
+                RequestedAmount = requestedAmount,
+                Description = description,
+                Status = Status.Pending,
+                ApplicationDate = DateTime.Now,
+                AdvisorId = advisorId,
+            };
+            
         public int Id { get; set; }
         public int StudentId { get; set; }
         public TypeSupport TypeSupport { get; set; }

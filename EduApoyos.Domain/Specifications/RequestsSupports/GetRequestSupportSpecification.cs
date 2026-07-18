@@ -2,12 +2,12 @@
 using EduApoyos.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace EduApoyos.Domain.Specifications
+namespace EduApoyos.Domain.Specifications.RequestsSupports
 {
     public sealed class GetRequestSupportSpecification : ISpecification<RequestSupport>
     {
         public Expression<Func<RequestSupport, bool>> Criteria {  get; internal set; }
-        public Expression<Func<RequestSupport, object>> OrderByDesc { get; set; }
+        public Expression<Func<RequestSupport, object>> OrderByDesc { get; internal set; }
 
         public int CurrentPage { get; internal set; }
         public int PageSize { get; internal set; }

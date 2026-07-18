@@ -1,7 +1,11 @@
 ﻿using EduApoyos.Api.Helpers;
-using EduApoyos.Application.Features.Requests.Queries.GetRequests;
+using EduApoyos.Application.Features.Requests.Commands.ChangeStatusRequestSupport;
+using EduApoyos.Application.Features.Requests.Commands.CreateRequest;
+using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupport;
+using EduApoyos.Application.Features.Requests.Queries.GetRequestSupportById;
 using EduApoyos.Domain.Common.Enums;
 using MediatR;
+using Microsoft.Identity.Client;
 
 namespace EduApoyos.Api.Endpoints
 {
@@ -9,12 +13,27 @@ namespace EduApoyos.Api.Endpoints
     {
         public void Register(IEndpointRouteBuilder app)
         {
-            var group = app.MapGroup("api/requests").WithTags("Requests");
+            var group = app.MapGroup("api/requests").WithTags("RequestsSupport");
 
-            group.MapGet("/", GetRequests);
+            group.MapGet("/", GetRequestsSupport);
+            group.MapPost("/", CreateRequestSupport);
+            group.MapGet("/{id}", GetRequestSupportById);
+            group.MapPatch("/{id}/estado", ChangeStatusRequestSupport);
         }
 
-        private static async Task<IResult> GetRequests(Status? status, TypeSupport? type, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
-            => (await sender.Send(new GetRequestsQuery(status, type, currentPage, pageSize), cancellationToken)).Match(Results.Ok, Problem);
+        private static async Task<IResult> GetRequestsSupport(Status? status, TypeSupport? type, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
+            => (await sender.Send(new GetRequestsSupportQuery(status, type, currentPage, pageSize), cancellationToken)).Match(Results.Ok, Problem);
+
+        private static async Task<IResult> CreateRequestSupport(CreateRequestSupportCommand command, IMediator sender, CancellationToken cancellationToken)
+            => (await sender.Send(command, cancellationToken)).Match(Results.Ok, Problem);
+
+        private static async Task<IResult> GetRequestSupportById(int id, IMediator sender, CancellationToken cancellationToken)
+            => (await sender.Send(new GetRequestSupportByIdQuery(id), cancellationToken)).Match(Results.Ok, Problem);
+
+        private static async Task<IResult> ChangeStatusRequestSupport(int id, ChangeStatusRequestSupportCommand command, IMediator sender, CancellationToken cancellationToken)
+        {
+            var commandSend = command with { RequestSupportId = id };
+            return (await sender.Send(commandSend, cancellationToken)).Match(Results.Ok, Problem);
+        }
     }
 }

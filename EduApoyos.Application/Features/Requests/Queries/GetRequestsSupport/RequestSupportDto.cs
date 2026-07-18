@@ -1,6 +1,6 @@
 ﻿using EduApoyos.Domain.Common.Enums;
 
-namespace EduApoyos.Application.Features.Requests.Queries.GetRequests
+namespace EduApoyos.Application.Features.Requests.Queries.GetRequestsSupport
 {
     public class RequestSupportDto
     {
