@@ -1,4 +1,4 @@
-﻿namespace EduApoyos.Domain.Enum
+﻿namespace EduApoyos.Domain.Common.Enum
 {
     public enum Status
     {

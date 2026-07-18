@@ -1,8 +1,6 @@
-﻿using EduApoyos.Application.Exceptions;
-using ErrorOr;
-using MediatR;
+﻿using EduApoyos.Application.Common.Exceptions;
 
-namespace EduApoyos.Application.Behaviours
+namespace EduApoyos.Application.Common.Behaviours
 {
     public sealed class ErrorOrBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest
     {

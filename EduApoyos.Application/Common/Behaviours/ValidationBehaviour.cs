@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 
-namespace EduApoyos.Application.Behaviours
+namespace EduApoyos.Application.Common.Behaviours
 {
     public sealed class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> _validators) : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest
     {

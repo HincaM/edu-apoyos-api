@@ -1,4 +1,5 @@
 using EduApoyos.Api.Extensions;
+using EduApoyos.Api.Helpers;
 using EduApoyos.Application;
 using EduApoyos.Infrastructure;
 
@@ -11,9 +12,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure("EduApoyosConnection");
+    .AddInfrastructure("LocalConnection")
+    .AddCors(opt => opt.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    }));
 
 var app = builder.Build();
+
+ApplyMigrationHelper.Apply(app);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -22,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.MapEndpointsModule();
 app.Run();

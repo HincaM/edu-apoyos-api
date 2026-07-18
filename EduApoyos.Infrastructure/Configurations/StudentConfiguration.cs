@@ -11,7 +11,7 @@ namespace EduApoyos.Infrastructure.Configurations
             builder.HasKey(k => k.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.Semester).IsRequired();
-            builder.Property(p => p.DocumentNumber).IsRequired();
+            builder.Property(p => p.DocumentNumber).IsRequired().HasMaxLength(30);
             builder.Property(p => p.AcademicProgramId).IsRequired();
             builder.Property(p => p.UserId).IsRequired();
 

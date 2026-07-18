@@ -1,8 +1,8 @@
-﻿using EduApoyos.Application.Exceptions;
+﻿using EduApoyos.Application.Common.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace EduApoyos.Application.Middlewares
+namespace EduApoyos.Application.Common.Middlewares
 {
     public sealed class ExceptionMiddleware : IMiddleware
     {

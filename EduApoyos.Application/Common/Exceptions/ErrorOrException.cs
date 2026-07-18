@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 
-namespace EduApoyos.Application.Exceptions
+namespace EduApoyos.Application.Common.Exceptions
 {
     public class ErrorOrException : Exception
     {

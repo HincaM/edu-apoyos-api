@@ -1,4 +1,4 @@
-﻿using EduApoyos.Application.Behaviours;
+﻿using EduApoyos.Application.Common.Behaviours;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
