@@ -1,5 +1,6 @@
 ﻿using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupport;
 using EduApoyos.Application.Interfaces.Services;
+using Mapster;
 
 namespace EduApoyos.Application.Features.Requests.Queries.GetRequestSupportById
 {
@@ -12,7 +13,7 @@ namespace EduApoyos.Application.Features.Requests.Queries.GetRequestSupportById
 
             if(result.Value is null) return Error.NotFound("Consulta solicitud", "Solicitud no encontrada");
 
-            return result.Value;
+            return result.Value.Adapt<RequestSupportDto>();
         }
     }
 }

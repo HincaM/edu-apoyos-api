@@ -1,5 +1,4 @@
-﻿using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupport;
-using EduApoyos.Application.Interfaces.Services;
+﻿using EduApoyos.Application.Interfaces.Services;
 using EduApoyos.Domain.Common.Enums;
 using EduApoyos.Domain.Entities;
 using EduApoyos.Domain.Models;
@@ -25,17 +24,20 @@ namespace EduApoyos.Infrastructure.Services
                 ), cancellationToken);
         }
 
-        public async Task<ErrorOr<PaginatedList<RequestSupportDto>>> GetRequests(GetRequestsSupportRequest request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequests(GetRequestsSupportRequest request, CancellationToken cancellationToken)
         {
             return (await _requestSupportRepository.GetRequests(new GetRequestSupportSpecification(
                 request.Status,
                 request.Type,
                 request.CurrentPage,
                 request.PageSize
-            ), cancellationToken)).Adapt<PaginatedList<RequestSupportDto>>();
+            ), cancellationToken)).Adapt<PaginatedList<GetRequestsSupportResult>>();
         }
 
-        public async Task<ErrorOr<RequestSupportDto?>> GetRequestSupportById(int id, CancellationToken cancellationToken) 
-            => (await _requestSupportRepository.GetRequestById(new GetRequestSupportByIdSpecification(id), cancellationToken)).Adapt<RequestSupportDto?>();
+        public async Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequestsSupportByStudentId(GetRequestsSupportByStudentIdSpecification specification, CancellationToken cancellationToken) => (await _requestSupportRepository.GetByStudentId(specification, cancellationToken)).Adapt<PaginatedList<GetRequestsSupportResult>>();
+
+        public async Task<ErrorOr<GetRequestsSupportResult?>> GetRequestSupportById(int id, CancellationToken cancellationToken) 
+            => (await _requestSupportRepository.GetRequestById(new GetRequestSupportByIdSpecification(id), cancellationToken)).Adapt<GetRequestsSupportResult?>();
+
     }
 }

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace EduApoyos.Domain.Specifications.RequestsSupports
 {
-    public sealed class GetRequestSupportSpecification : ISpecification<RequestSupport>
+    public class GetRequestSupportSpecification : ISpecification<RequestSupport>
     {
         public Expression<Func<RequestSupport, bool>> Criteria {  get; internal set; }
         public Expression<Func<RequestSupport, object>> OrderByDesc { get; internal set; }

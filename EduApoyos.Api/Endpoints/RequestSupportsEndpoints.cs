@@ -2,10 +2,10 @@
 using EduApoyos.Application.Features.Requests.Commands.ChangeStatusRequestSupport;
 using EduApoyos.Application.Features.Requests.Commands.CreateRequest;
 using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupport;
+using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupportByStudentId;
 using EduApoyos.Application.Features.Requests.Queries.GetRequestSupportById;
 using EduApoyos.Domain.Common.Enums;
 using MediatR;
-using Microsoft.Identity.Client;
 
 namespace EduApoyos.Api.Endpoints
 {
@@ -19,6 +19,8 @@ namespace EduApoyos.Api.Endpoints
             group.MapPost("/", CreateRequestSupport);
             group.MapGet("/{id}", GetRequestSupportById);
             group.MapPatch("/{id}/estado", ChangeStatusRequestSupport);
+
+            app.MapGet("api/students/{id}/requests", GetRequestsSupportByStudentId).WithTags("RequestsSupport");
         }
 
         private static async Task<IResult> GetRequestsSupport(Status? status, TypeSupport? type, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
@@ -35,5 +37,9 @@ namespace EduApoyos.Api.Endpoints
             var commandSend = command with { RequestSupportId = id };
             return (await sender.Send(commandSend, cancellationToken)).Match(Results.Ok, Problem);
         }
+
+        private static async Task<IResult> GetRequestsSupportByStudentId(int id, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
+            => (await sender.Send(new GetRequestsSupportByStudentIdQuery(id, currentPage, pageSize), cancellationToken)).Match(Results.Ok, Problem);
+        
     }
 }

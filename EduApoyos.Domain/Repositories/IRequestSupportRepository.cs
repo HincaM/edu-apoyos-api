@@ -12,5 +12,6 @@ namespace EduApoyos.Domain.Repositories
         Task<PaginatedList<GetRequestsSupportResult>> GetRequests(GetRequestSupportSpecification specification, CancellationToken cancellationToken);
         Task<GetRequestsSupportResult?> GetRequestById(GetRequestSupportByIdSpecification specification, CancellationToken cancellationToken);
         Task<bool> ChangeStatus(int requestSupportId, Status status, CancellationToken cancellationToken);
+        Task<PaginatedList<GetRequestsSupportResult>> GetByStudentId(GetRequestsSupportByStudentIdSpecification specification, CancellationToken cancellationToken);
     }
 }

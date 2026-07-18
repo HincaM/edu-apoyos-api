@@ -74,5 +74,8 @@ namespace EduApoyos.Infrastructure.Repositories
 
             return false;
         }
+
+        public async Task<PaginatedList<GetRequestsSupportResult>> GetByStudentId(GetRequestsSupportByStudentIdSpecification specification, CancellationToken cancellationToken) 
+            => await GetRequests(specification, cancellationToken);
     }
 }
