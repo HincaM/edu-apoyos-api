@@ -14,5 +14,8 @@ namespace EduApoyos.Infrastructure.Repositories
             await _users.AddAsync(user, cancellationToken);
             return await _context.SaveChangesAsync(cancellationToken) > 0;
         }
+
+        public async Task<User?> GetById(string userId, CancellationToken cancellationToken) 
+            => await _users.FirstOrDefaultAsync(f => f.Id == userId, cancellationToken);
     }
 }

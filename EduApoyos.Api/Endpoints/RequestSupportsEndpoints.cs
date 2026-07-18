@@ -15,12 +15,12 @@ namespace EduApoyos.Api.Endpoints
         {
             var group = app.MapGroup("api/requests").WithTags("RequestsSupport");
 
-            group.MapGet("/", GetRequestsSupport);
-            group.MapPost("/", CreateRequestSupport);
-            group.MapGet("/{id}", GetRequestSupportById);
-            group.MapPatch("/{id}/estado", ChangeStatusRequestSupport);
+            group.MapGet("/", GetRequestsSupport).RequireAuthorization();
+            group.MapPost("/", CreateRequestSupport).RequireAuthorization();
+            group.MapGet("/{id}", GetRequestSupportById).RequireAuthorization();
+            group.MapPatch("/{id}/estado", ChangeStatusRequestSupport).RequireAuthorization();
 
-            app.MapGet("api/students/{id}/requests", GetRequestsSupportByStudentId).WithTags("RequestsSupport");
+            app.MapGet("api/students/{id}/requests", GetRequestsSupportByStudentId).WithTags("RequestsSupport").RequireAuthorization();
         }
 
         private static async Task<IResult> GetRequestsSupport(Status? status, TypeSupport? type, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)

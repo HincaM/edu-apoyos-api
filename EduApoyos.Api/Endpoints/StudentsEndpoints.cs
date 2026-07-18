@@ -11,8 +11,8 @@ namespace EduApoyos.Api.Endpoints
         {
             var group = app.MapGroup("/api/students").WithTags("Students");
 
-            group.MapGet("/", GetStudents);
-            group.MapPost("/", CreateStudent);
+            group.MapGet("/", GetStudents).RequireAuthorization();
+            group.MapPost("/", CreateStudent).RequireAuthorization();
         }
 
         private static async Task<IResult> GetStudents(int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)

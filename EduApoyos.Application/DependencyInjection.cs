@@ -1,6 +1,6 @@
 ﻿using EduApoyos.Application.Common.Behaviours;
+using EduApoyos.Application.Helpers;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EduApoyos.Application
@@ -14,6 +14,8 @@ namespace EduApoyos.Application
                 .AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly)
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>))
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(ErrorOrBehaviour<,>))
+                .AddScoped<TokenGeneratorHelper>()
+    
                 ;
         }
     }
