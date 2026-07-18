@@ -1,4 +1,4 @@
-﻿namespace EduApoyos.Domain.Common.Enum
+﻿namespace EduApoyos.Domain.Common.Enums
 {
     public enum Role
     {

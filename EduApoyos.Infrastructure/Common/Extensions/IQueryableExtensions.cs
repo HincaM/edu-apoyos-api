@@ -5,15 +5,15 @@ namespace EduApoyos.Infrastructure.Common.Extensions
 {
     public static class IQueryableExtensions
     {
-        public static async Task<PaginatedList<T>> ToPaginatedList<T>(this IQueryable<T> query, int currentPage, int pageSize, CancellationToken cancellationToken)
+        public static async Task<PaginatedList<T>> ToPaginatedListAsync<T>(this IQueryable<T> query, int currentPage, int pageSize, CancellationToken cancellationToken)
         {
             var paginatedList = new PaginatedList<T>
             {
                 CurrentPage = currentPage,
                 PageSize = pageSize,
                 TotalCount = query.Count(),
-                Results = await query.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken)
             };
+            paginatedList.Results = await query.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             return paginatedList;
         }
     }

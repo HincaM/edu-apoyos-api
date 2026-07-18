@@ -1,4 +1,4 @@
-﻿using EduApoyos.Domain.Common.Enum;
+﻿using EduApoyos.Domain.Common.Enums;
 using EduApoyos.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

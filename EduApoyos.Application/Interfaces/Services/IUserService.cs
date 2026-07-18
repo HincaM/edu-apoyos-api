@@ -1,4 +1,4 @@
-﻿using EduApoyos.Application.Interfaces.Models;
+﻿using EduApoyos.Domain.Models;
 
 namespace EduApoyos.Application.Interfaces.Services
 {

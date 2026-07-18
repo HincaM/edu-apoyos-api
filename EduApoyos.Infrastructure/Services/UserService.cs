@@ -1,4 +1,4 @@
-﻿using EduApoyos.Application.Interfaces.Models;
+﻿using EduApoyos.Domain.Models;
 using EduApoyos.Application.Interfaces.Services;
 using EduApoyos.Domain.Entities;
 using EduApoyos.Domain.Repositories;

@@ -28,6 +28,7 @@ namespace EduApoyos.Infrastructure
 
                 .AddScoped<IStudentsService, StudentsService>()
                 .AddScoped<IUserService, UserService>()
+                .AddScoped<IRequestSupportService, RequestSupportService>()
                 ;
         }   
     }

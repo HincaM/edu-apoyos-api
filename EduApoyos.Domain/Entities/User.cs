@@ -1,4 +1,4 @@
-﻿using EduApoyos.Domain.Common.Enum;
+﻿using EduApoyos.Domain.Common.Enums;
 
 namespace EduApoyos.Domain.Entities
 {

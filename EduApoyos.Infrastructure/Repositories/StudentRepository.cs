@@ -1,4 +1,5 @@
 ﻿using EduApoyos.Domain.Entities;
+using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Repositories;
 using EduApoyos.Domain.Specifications;
 using EduApoyos.Infrastructure.Context;
@@ -18,8 +19,18 @@ namespace EduApoyos.Infrastructure.Repositories
             return student.Id;
         }
 
-        public async Task<PaginatedList<Student>> GetStudents(GetStudentsSpecification specification, CancellationToken cancellationToken)
-            => await _students.ToPaginatedList(specification.CurrentPage, specification.PageSize, cancellationToken);
+        public async Task<PaginatedList<GetStudentResult>> GetStudents(GetStudentsSpecification specification, CancellationToken cancellationToken)
+            => await _students
+            .OrderBy(specification.OrderBy)
+            .Select(s => new GetStudentResult(
+                s.Id,
+                s.UserId,
+                s.User != null ? s.User.FullName : "",
+                s.DocumentNumber, s.AcademicProgramId,
+                s.AcademicProgram != null ? s.AcademicProgram.Name : "", 
+                s.Semester
+                ))
+            .ToPaginatedListAsync(specification.CurrentPage, specification.PageSize, cancellationToken);
 
     }
 }

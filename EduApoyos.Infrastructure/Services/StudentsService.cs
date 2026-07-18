@@ -1,4 +1,4 @@
-﻿using EduApoyos.Application.Interfaces.Models;
+﻿using EduApoyos.Domain.Models;
 using EduApoyos.Application.Interfaces.Services;
 using EduApoyos.Domain.Entities;
 using EduApoyos.Domain.Repositories;
@@ -12,7 +12,7 @@ namespace EduApoyos.Infrastructure.Services
         public async Task<int> CreateStudent(CreateStudentRequest request, CancellationToken cancellationToken) 
             => await _studentRepository.Create(Student.Create(request.UserId, request.DocumentNumber, request.AcademicProgramId, request.Semester), cancellationToken);
 
-        public async Task<ErrorOr<PaginatedList<StudentResult>>> GetStudents(StudentRequest request, CancellationToken cancellationToken)
-            => (await _studentRepository.GetStudents(new GetStudentsSpecification(request.CurrentPage, request.PageSize), cancellationToken)).Adapt<PaginatedList<StudentResult>>();
+        public async Task<ErrorOr<PaginatedList<GetStudentResult>>> GetStudents(GetStudentRequest request, CancellationToken cancellationToken)
+            => await _studentRepository.GetStudents(new GetStudentsSpecification(request.CurrentPage, request.PageSize), cancellationToken);
     }
 }

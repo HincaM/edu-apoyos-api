@@ -1,4 +1,4 @@
-﻿using EduApoyos.Application.Interfaces.Models;
+﻿using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Common.Helpers;
 
 namespace EduApoyos.Application.Interfaces.Services
@@ -6,6 +6,6 @@ namespace EduApoyos.Application.Interfaces.Services
     public interface IStudentsService
     {
         Task<int> CreateStudent(CreateStudentRequest createStudentRequest, CancellationToken cancellationToken);
-        Task<ErrorOr<PaginatedList<StudentResult>>> GetStudents(StudentRequest request, CancellationToken cancellationToken);
+        Task<ErrorOr<PaginatedList<GetStudentResult>>> GetStudents(GetStudentRequest request, CancellationToken cancellationToken);
     }
 }
