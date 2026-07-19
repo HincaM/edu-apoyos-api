@@ -18,12 +18,23 @@ namespace EduApoyos.Api.Endpoints
         {
             var group = app.MapGroup("api/requests").WithTags("RequestsSupport");
 
-            group.MapGet("/", GetRequestsSupport).RequireAuthorization(new AuthorizeAttribute { Roles = RoleConstants.Advisor });
-            group.MapPost("/", CreateRequestSupport).RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" });
-            group.MapGet("/{id}", GetRequestSupportById).RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" });
-            group.MapPatch("/{id}/estado", ChangeStatusRequestSupport).RequireAuthorization(RoleConstants.Advisor);
+            group.MapGet("/", GetRequestsSupport)
+                .RequireAuthorization(new AuthorizeAttribute { Roles = RoleConstants.Advisor })
+                .WithGetAllDocs();
+            group.MapPost("/", CreateRequestSupport)
+                .RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" })
+                .WithCreateDocs();
+            group.MapGet("/{id}", GetRequestSupportById)
+                .RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" })
+                .WithGetByIdDocs();
+            group.MapPatch("/{id}/estado", ChangeStatusRequestSupport)
+                .RequireAuthorization(RoleConstants.Advisor)
+                .WithChangeStatusDocs();
 
-            app.MapGet("api/students/{id}/requests", GetRequestsSupportByStudentId).WithTags("RequestsSupport").RequireAuthorization(RoleConstants.Student);
+            app.MapGet("api/students/{id}/requests", GetRequestsSupportByStudentId)
+                .WithTags("RequestsSupport")
+                .RequireAuthorization(RoleConstants.Student)
+                .WithGetByStudentIdDocs();
         }
 
         private static async Task<IResult> GetRequestsSupport(Status? status, TypeSupport? type, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)

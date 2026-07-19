@@ -1,4 +1,5 @@
-﻿using EduApoyos.Api.Helpers;
+using EduApoyos.Api.Extensions;
+using EduApoyos.Api.Helpers;
 using EduApoyos.Application.Features.Auth.Commands.Login;
 using EduApoyos.Application.Features.Auth.Commands.Register;
 using MediatR;
@@ -11,8 +12,8 @@ namespace EduApoyos.Api.Endpoints
         {
             var group = app.MapGroup("api/auth").WithTags("Authentication").AllowAnonymous();
 
-            group.MapPost("login", Login);
-            group.MapPost("register", UserRegister);
+            group.MapPost("login", Login).WithLoginDocs();
+            group.MapPost("register", UserRegister).WithRegisterDocs();
         }
 
         private static async Task<IResult> Login(LoginCommand command, IMediator sender, CancellationToken cancellationToken)
