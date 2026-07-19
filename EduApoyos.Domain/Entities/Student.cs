@@ -4,7 +4,7 @@
     {
         private Student() { }
 
-        public static Student Create(string userId, string documentNumber, int academicProgramId, int semester) 
+        public static Student Create(int userId, string documentNumber, int academicProgramId, int semester) 
             => new() { 
                 UserId = userId,
                 DocumentNumber = documentNumber,
@@ -13,7 +13,7 @@
             };
 
         public int Id { get; set; }
-        public required string UserId { get; set; }
+        public int UserId { get; set; }
         public required string DocumentNumber { get; set; }
         public int AcademicProgramId { get; set; }
         public int Semester { get; set; }

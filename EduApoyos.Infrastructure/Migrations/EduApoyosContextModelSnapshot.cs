@@ -53,9 +53,8 @@ namespace EduApoyos.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AdvisorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("AdvisorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ApplicationDate")
                         .HasColumnType("datetime2");
@@ -112,9 +111,8 @@ namespace EduApoyos.Infrastructure.Migrations
                     b.Property<int>("RequestSupportId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -144,9 +142,8 @@ namespace EduApoyos.Infrastructure.Migrations
                     b.Property<int>("Semester")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -159,10 +156,11 @@ namespace EduApoyos.Infrastructure.Migrations
 
             modelBuilder.Entity("EduApoyos.Domain.Entities.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateRegistration")
                         .HasColumnType("datetime2");

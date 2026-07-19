@@ -36,8 +36,8 @@ namespace EduApoyos.Infrastructure.Services
 
         public async Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequestsSupportByStudentId(GetRequestsSupportByStudentIdSpecification specification, CancellationToken cancellationToken) => (await _requestSupportRepository.GetByStudentId(specification, cancellationToken)).Adapt<PaginatedList<GetRequestsSupportResult>>();
 
-        public async Task<ErrorOr<GetRequestsSupportResult?>> GetRequestSupportById(int id, string? userId, CancellationToken cancellationToken) 
-            => (await _requestSupportRepository.GetRequestById(new GetRequestSupportByIdSpecification(id, userId), cancellationToken)).Adapt<GetRequestsSupportResult?>();
+        public async Task<ErrorOr<GetRequestsSupportResult?>> GetRequestSupportById(int id, string? email, CancellationToken cancellationToken) 
+            => (await _requestSupportRepository.GetRequestById(new GetRequestSupportByIdSpecification(id, email), cancellationToken)).Adapt<GetRequestsSupportResult?>();
 
     }
 }

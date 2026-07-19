@@ -6,7 +6,7 @@ namespace EduApoyos.Domain.Entities
     {
         private RequestSupport() { }
 
-        public static RequestSupport Create(int studentId, TypeSupport typeSupport, double requestedAmount, string description, string advisorId)
+        public static RequestSupport Create(int studentId, TypeSupport typeSupport, double requestedAmount, string description, int advisorId)
             => new()
             {
                 StudentId = studentId,
@@ -26,7 +26,7 @@ namespace EduApoyos.Domain.Entities
         public Status Status { get; set; }
         public DateTime ApplicationDate { get; set; }
         public DateTime? DateUpdated { get; set; }
-        public required string AdvisorId { get; set; }
+        public int AdvisorId { get; set; }
         public Student? Student { get; set; }
         public User? Advisor { get; set; }
     }

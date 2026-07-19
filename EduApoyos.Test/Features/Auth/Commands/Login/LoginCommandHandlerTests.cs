@@ -5,6 +5,7 @@ using EduApoyos.Application.Interfaces.Services;
 using EduApoyos.Domain.Common.Enums;
 using EduApoyos.Domain.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace EduApoyos.Test.Features.Auth.Commands.Login;
@@ -12,22 +13,15 @@ namespace EduApoyos.Test.Features.Auth.Commands.Login;
 public class LoginCommandHandlerTests
 {
     private readonly Mock<IUserService> _userServiceMock = new();
+    private readonly Mock<IOptions<TokenOption>> _options = new();
     private readonly TokenGeneratorHelper _tokenGeneratorHelper;
     private readonly LoginCommandHandler _handler;
-    private readonly string User = "userId";
+    private readonly string Email = "user1@test.com";
 
     public LoginCommandHandlerTests()
     {
-        var configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
-            {
-                ["Jwt:Key"] = "clavesecretaparapruebasunitarias",
-                ["Jwt:Issuer"] = "EduApoyosTest",
-                ["Jwt:Audience"] = "EduApoyosTest"
-            })
-            .Build();
-
-        _tokenGeneratorHelper = new TokenGeneratorHelper(configuration);
+        _options.Setup(o => o.Value).Returns(new TokenOption(60, "issuer", "audience", "supersecretkey12345678901234567890"));
+        _tokenGeneratorHelper = new TokenGeneratorHelper(_options.Object);
         _handler = new LoginCommandHandler(_userServiceMock.Object, _tokenGeneratorHelper);
     }
 
@@ -35,7 +29,7 @@ public class LoginCommandHandlerTests
     public async Task UserDoesNotExist()
     {
         _userServiceMock
-            .Setup(s => s.GetUserById("NoExiste", It.IsAny<CancellationToken>()))
+            .Setup(s => s.GetUserByEmail("NoExiste", It.IsAny<CancellationToken>()))
             .ReturnsAsync((GetUserResult?)null);
 
         var result = await _handler.Handle(new LoginCommand("NoExiste", "cualquier-clave"), CancellationToken.None);
@@ -50,13 +44,13 @@ public class LoginCommandHandlerTests
         string claveCorrecta = "claveCorrecta";
         string claveIncorrecta = "claveIncorrecta";
         var passwordHash = new PasswordHashHelper().Hash(claveCorrecta);
-        var user = new GetUserResult(User, "user1@test.com", Role.Student, passwordHash);
+        var user = new GetUserResult(Email, Role.Student, passwordHash);
 
         _userServiceMock
-            .Setup(s => s.GetUserById("User", It.IsAny<CancellationToken>()))
+            .Setup(s => s.GetUserByEmail(Email, It.IsAny<CancellationToken>()))
             .ReturnsAsync(user);
 
-        var result = await _handler.Handle(new LoginCommand(User, claveIncorrecta), CancellationToken.None);
+        var result = await _handler.Handle(new LoginCommand(Email, claveIncorrecta), CancellationToken.None);
 
         Assert.True(result.IsError);
         Assert.Equal(ErrorOr.ErrorType.Unauthorized, result.FirstError.Type);
@@ -67,13 +61,13 @@ public class LoginCommandHandlerTests
     {
         string claveCorrecta = "claveCorrecta";
         var passwordHash = new PasswordHashHelper().Hash(claveCorrecta);
-        var user = new GetUserResult(User, "user1@test.com", Role.Student, passwordHash);
+        var user = new GetUserResult(Email, Role.Student, passwordHash);
 
         _userServiceMock
-            .Setup(s => s.GetUserById(User, It.IsAny<CancellationToken>()))
+            .Setup(s => s.GetUserByEmail(Email, It.IsAny<CancellationToken>()))
             .ReturnsAsync(user);
 
-        var result = await _handler.Handle(new LoginCommand(User, claveCorrecta), CancellationToken.None);
+        var result = await _handler.Handle(new LoginCommand(Email, claveCorrecta), CancellationToken.None);
 
         Assert.False(result.IsError);
         Assert.False(string.IsNullOrWhiteSpace(result.Value));

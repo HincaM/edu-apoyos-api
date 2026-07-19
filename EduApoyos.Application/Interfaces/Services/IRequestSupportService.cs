@@ -11,6 +11,6 @@ namespace EduApoyos.Application.Interfaces.Services
         Task<ErrorOr<int>> CreateSupport(CreateRequestSupportRequest request, CancellationToken cancellationToken);
         Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequests(GetRequestsSupportRequest request, CancellationToken cancellationToken);
         Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequestsSupportByStudentId(GetRequestsSupportByStudentIdSpecification specification, CancellationToken cancellationToken);
-        Task<ErrorOr<GetRequestsSupportResult?>> GetRequestSupportById(int id, string? userId, CancellationToken cancellationToken);
+        Task<ErrorOr<GetRequestsSupportResult?>> GetRequestSupportById(int id, string? email, CancellationToken cancellationToken);
     }
 }

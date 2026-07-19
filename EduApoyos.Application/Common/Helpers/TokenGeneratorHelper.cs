@@ -1,6 +1,7 @@
-﻿using EduApoyos.Application.Extensions;
+﻿using EduApoyos.Application.Common.Helpers;
+using EduApoyos.Application.Extensions;
 using EduApoyos.Domain.Common.Enums;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,23 +9,24 @@ using System.Text;
 
 namespace EduApoyos.Application.Helpers
 {
-    public sealed class TokenGeneratorHelper(IConfiguration _configuration)
+    public sealed class TokenGeneratorHelper(IOptions<TokenOption> _options)
     {
-        public string Generate(string userId, string email, Role role)
+        private readonly TokenOption _tokenOption = _options.Value;
+        public string Generate(string email, Role role)
         {
             var claims = new List<Claim>
             {
-                new(ClaimTypes.NameIdentifier, userId),
                 new(ClaimTypes.Email, email),
                 new(ClaimTypes.Role, role.GetDescription())
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOption.Key));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
             var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
+                issuer: _tokenOption.Issuer,
+                audience: _tokenOption.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.UtcNow.AddHours(_tokenOption.ExpireMinutes),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

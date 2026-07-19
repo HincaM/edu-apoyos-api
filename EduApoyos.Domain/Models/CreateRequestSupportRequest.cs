@@ -4,9 +4,9 @@ namespace EduApoyos.Domain.Models;
 
 public record CreateRequestSupportRequest(
     int StudentId,
-    string UserId,
+    int UserId,
     TypeSupport TypeSupport,
     double RequestedAmount,
     string Description,
-    string AdvisorId
+    int AdvisorId
 );

@@ -9,7 +9,7 @@ namespace EduApoyos.Domain.Entities
         public Status PreviousState { get; set; }
         public Status NewState { get; set; }
         public DateTime ChangeDate { get; set; }
-        public required string UserId { get; set; }
+        public int UserId { get; set; }
         public string? Observation { get; set; }
         public User? User { get; set; }
         public RequestSupport? RequestSupport { get; set; }

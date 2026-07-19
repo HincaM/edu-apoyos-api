@@ -9,12 +9,11 @@ namespace EduApoyos.Infrastructure.Services
 {
     public sealed class UserService(IUserRepository _userRepository) : IUserService
     {
-        public async Task<GetUserResult?> GetUserById(string userId, CancellationToken cancellationToken)
+        public async Task<GetUserResult?> GetUserByEmail(string email, CancellationToken cancellationToken)
         {
-            return (await _userRepository.GetById(userId, cancellationToken)).Adapt<GetUserResult>(config =>
+            return (await _userRepository.GetByEmail(email, cancellationToken)).Adapt<GetUserResult>(config =>
             {
                 config.NewConfig<User, GetUserResult>()
-                    .Map(dest => dest.UserId, src => src.Id)
                     .Map(dest => dest.Email, src => src.Email)
                     .Map(dest => dest.Role, src => src.Role)
                     .Map(dest => dest.PasswordHash, src => src.PasswordHash);
@@ -25,7 +24,7 @@ namespace EduApoyos.Infrastructure.Services
         {
             PasswordHashHelper passwordHash = new();
             var passHash = passwordHash.Hash(request.Password);
-            return await _userRepository.Create(User.Create(request.UserId, request.FullName, request.Email, passHash, request.Role), cancellationToken);
+            return await _userRepository.Create(User.Create(request.FullName, request.Email, passHash, request.Role), cancellationToken);
         }
     }
 }

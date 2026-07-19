@@ -16,7 +16,7 @@ namespace EduApoyos.Domain.Models
         public string StatusDescription => Status.GetDescription("");
         public DateTime ApplicationDate { get; set; }
         public DateTime? DateUpdated { get; set; }
-        public required string AdvisorId { get; set; }
+        public int AdvisorId { get; set; }
         public string? AdvisorName { get; set; }
     }
 }

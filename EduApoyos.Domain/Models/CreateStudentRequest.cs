@@ -1,3 +1,3 @@
 ﻿namespace EduApoyos.Domain.Models;
 
-public record CreateStudentRequest(string UserId, string DocumentNumber, int AcademicProgramId, int Semester);
+public record CreateStudentRequest(int UserId, string DocumentNumber, int AcademicProgramId, int Semester);

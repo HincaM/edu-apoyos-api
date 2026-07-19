@@ -2,7 +2,7 @@
 
 public record GetStudentResult(
     int Id, 
-    string UserId, 
+    int UserId, 
     string UserName,
     string DocumentNumber, 
     int AcademicProgramId, 

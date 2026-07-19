@@ -13,15 +13,15 @@ namespace EduApoyos.Application.Features.Auth.Commands.Login
         {
             try
             {
-                var user = await _userService.GetUserById(request.UserId, cancellationToken);
+                var user = await _userService.GetUserByEmail(request.Email, cancellationToken);
                 if (user is null)
                     return Error.Unauthorized("Validación", "Usuario y/o contraseña incorrectos");
 
                 PasswordHashHelper passwordHash = new();
 
-                if (user.UserId == request.UserId && passwordHash.Verify(request.Password, user.PasswordHash))
+                if (user.Email == request.Email && passwordHash.Verify(request.Password, user.PasswordHash))
                 {
-                    var token = _tokenGeneratorHelper.Generate(user.UserId, user.Email, user.Role);
+                    var token = _tokenGeneratorHelper.Generate(user.Email, user.Role);
                     return token;
                 }
 

@@ -45,8 +45,8 @@ namespace EduApoyos.Api.Endpoints
 
         private static async Task<IResult> GetRequestSupportById(int id, IMediator sender, CancellationToken cancellationToken, ClaimsPrincipal user)
         {
-            var userId = user.IsInRole("Estudiante") ? user.FindFirst(ClaimTypes.NameIdentifier)?.Value : null;
-            return (await sender.Send(new GetRequestSupportByIdQuery(id, userId), cancellationToken)).Match(Results.Ok, Problem);
+            var email = user.IsInRole("Estudiante") ? user.FindFirst(ClaimTypes.Email)?.Value : null;
+            return (await sender.Send(new GetRequestSupportByIdQuery(id, email), cancellationToken)).Match(Results.Ok, Problem);
         }
 
         private static async Task<IResult> ChangeStatusRequestSupport(int id, ChangeStatusRequestSupportCommand command, IMediator sender, CancellationToken cancellationToken)

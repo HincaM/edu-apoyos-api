@@ -29,7 +29,8 @@ namespace EduApoyos.Infrastructure.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
@@ -47,7 +48,7 @@ namespace EduApoyos.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     DocumentNumber = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     AcademicProgramId = table.Column<int>(type: "int", nullable: false),
                     Semester = table.Column<int>(type: "int", nullable: false)
@@ -82,7 +83,7 @@ namespace EduApoyos.Infrastructure.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     ApplicationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AdvisorId = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                    AdvisorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,7 +112,7 @@ namespace EduApoyos.Infrastructure.Migrations
                     PreviousState = table.Column<int>(type: "int", nullable: false),
                     NewState = table.Column<int>(type: "int", nullable: false),
                     ChangeDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Observation = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

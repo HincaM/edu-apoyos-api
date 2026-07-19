@@ -2,4 +2,4 @@
 
 namespace EduApoyos.Domain.Models;
 
-public record GetUserResult(string UserId, string Email, Role Role, string PasswordHash);
+public record GetUserResult(string Email, Role Role, string PasswordHash);
