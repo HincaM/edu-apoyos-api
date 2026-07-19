@@ -21,7 +21,7 @@ namespace EduApoyos.Application.Features.Auth.Commands.Login
 
                 if (user.Email == request.Email && passwordHash.Verify(request.Password, user.PasswordHash))
                 {
-                    var token = _tokenGeneratorHelper.Generate(user.Email, user.Role);
+                    var token = _tokenGeneratorHelper.Generate(user.UserId, user.Email, user.Role);
                     return token;
                 }
 

@@ -12,10 +12,11 @@ namespace EduApoyos.Application.Helpers
     public sealed class TokenGeneratorHelper(IOptions<TokenOption> _options)
     {
         private readonly TokenOption _tokenOption = _options.Value;
-        public string Generate(string email, Role role)
+        public string Generate(int userId, string email, Role role)
         {
             var claims = new List<Claim>
             {
+                new(ClaimTypes.Name, userId.ToString()),
                 new(ClaimTypes.Email, email),
                 new(ClaimTypes.Role, role.GetDescription())
             };

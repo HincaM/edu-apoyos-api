@@ -15,6 +15,7 @@ namespace EduApoyos.Infrastructure.Services
             return (await _userRepository.GetByEmail(email, cancellationToken)).Adapt<GetUserResult>(config =>
             {
                 config.NewConfig<User, GetUserResult>()
+                    .Map(dest => dest.UserId, src => src.Id)
                     .Map(dest => dest.Email, src => src.Email)
                     .Map(dest => dest.Role, src => src.Role)
                     .Map(dest => dest.PasswordHash, src => src.PasswordHash);

@@ -44,7 +44,7 @@ public class LoginCommandHandlerTests
         string claveCorrecta = "claveCorrecta";
         string claveIncorrecta = "claveIncorrecta";
         var passwordHash = new PasswordHashHelper().Hash(claveCorrecta);
-        var user = new GetUserResult(Email, Role.Student, passwordHash);
+        var user = new GetUserResult(1, Email, Role.Student, passwordHash);
 
         _userServiceMock
             .Setup(s => s.GetUserByEmail(Email, It.IsAny<CancellationToken>()))
@@ -61,7 +61,7 @@ public class LoginCommandHandlerTests
     {
         string claveCorrecta = "claveCorrecta";
         var passwordHash = new PasswordHashHelper().Hash(claveCorrecta);
-        var user = new GetUserResult(Email, Role.Student, passwordHash);
+        var user = new GetUserResult(1, Email, Role.Student, passwordHash);
 
         _userServiceMock
             .Setup(s => s.GetUserByEmail(Email, It.IsAny<CancellationToken>()))
