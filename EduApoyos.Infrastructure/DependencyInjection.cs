@@ -25,10 +25,12 @@ namespace EduApoyos.Infrastructure
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IStudentRepository, StudentRepository>()
                 .AddScoped<IRequestSupportRepository, RequestSupportRepository>()
+                .AddScoped<IAcademicProgramRepository, AcademicProgramRepository>()
 
                 .AddScoped<IStudentsService, StudentsService>()
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IRequestSupportService, RequestSupportService>()
+                .AddScoped<IAcademicProgramService, AcademicProgramService>()
                 ;
         }   
     }

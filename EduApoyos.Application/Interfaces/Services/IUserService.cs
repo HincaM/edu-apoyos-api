@@ -1,4 +1,5 @@
-﻿using EduApoyos.Domain.Models;
+﻿using EduApoyos.Domain.Common.Helpers;
+using EduApoyos.Domain.Models;
 
 namespace EduApoyos.Application.Interfaces.Services
 {
@@ -6,5 +7,6 @@ namespace EduApoyos.Application.Interfaces.Services
     {
         Task<GetUserResult?> GetUserByEmail(string email, CancellationToken cancellationToken);
         Task<ErrorOr<bool>> Register(RegisterRequest request, CancellationToken cancellationToken);
+        Task<ErrorOr<PaginatedList<GetAdvisorResult>>> GetAdvisors(GetAdvisorRequest request, CancellationToken cancellationToken);
     }
 }

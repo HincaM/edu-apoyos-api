@@ -1,9 +1,11 @@
 ﻿namespace EduApoyos.Application.Common.Helpers
 {
-    public record TokenOption(
-        int ExpireMinutes,
-        string Issuer,
-        string Audience,
-        string Key
-        );
+    public class TokenOption
+    {
+        public int ExpireMinutes { get; set; }
+        public required string Issuer { get; set; }
+        public required string Audience { get; set; }
+        public required string Key { get; set; }
+
+    }
 }

@@ -1,6 +1,7 @@
 using EduApoyos.Api.Extensions;
 using EduApoyos.Api.Helpers;
 using EduApoyos.Application;
+using EduApoyos.Application.Common.Helpers;
 using EduApoyos.Application.Common.Middlewares;
 using EduApoyos.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -49,6 +50,9 @@ builder.Services
               .AllowAnyHeader();
     }))
     .AddAuthorization()
+    .Configure<TokenOption>(
+        builder.Configuration.GetSection("Jwt")
+    )
     .AddAuthentication(opt =>
     {
         opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -68,6 +72,8 @@ builder.Services
         };
     })
     ;
+
+
 
 var app = builder.Build();
 

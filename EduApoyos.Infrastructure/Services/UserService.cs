@@ -3,6 +3,7 @@ using EduApoyos.Application.Interfaces.Services;
 using EduApoyos.Domain.Entities;
 using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Repositories;
+using EduApoyos.Domain.Specifications;
 using Mapster;
 
 namespace EduApoyos.Infrastructure.Services
@@ -26,5 +27,8 @@ namespace EduApoyos.Infrastructure.Services
             var passHash = passwordHash.Hash(request.Password);
             return await _userRepository.Create(User.Create(request.FullName, request.Email, passHash, request.Role), cancellationToken);
         }
+
+        public async Task<ErrorOr<PaginatedList<GetAdvisorResult>>> GetAdvisors(GetAdvisorRequest request, CancellationToken cancellationToken)
+            => await _userRepository.GetAdvisors(new GetAdvisorsSpecification(request.CurrentPage, request.PageSize), cancellationToken);
     }
 }

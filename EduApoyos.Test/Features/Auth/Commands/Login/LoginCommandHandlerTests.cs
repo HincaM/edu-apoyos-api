@@ -20,7 +20,7 @@ public class LoginCommandHandlerTests
 
     public LoginCommandHandlerTests()
     {
-        _options.Setup(o => o.Value).Returns(new TokenOption(60, "issuer", "audience", "supersecretkey12345678901234567890"));
+        _options.Setup(o => o.Value).Returns(new TokenOption { ExpireMinutes = 60, Issuer = "issuer", Audience = "audience", Key = "supersecretkey12345678901234567890" });
         _tokenGeneratorHelper = new TokenGeneratorHelper(_options.Object);
         _handler = new LoginCommandHandler(_userServiceMock.Object, _tokenGeneratorHelper);
     }
