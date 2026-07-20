@@ -11,6 +11,20 @@ namespace EduApoyos.Infrastructure.Repositories
     {
         private readonly DbSet<Student> _students = _context.Set<Student>();
 
+        private IQueryable<GetStudentResult> GetQuery(ISpecification<Student> specification)
+            => _students
+                .Where(specification.Criteria)
+                .Select(s => new GetStudentResult(
+                    s.Id,
+                    s.UserId,
+                    s.User != null ? s.User.FullName : "",
+                    s.DocumentNumber,
+                    s.DocumentType,
+                    s.AcademicProgramId,
+                    s.AcademicProgram != null ? s.AcademicProgram.Name : "",
+                    s.Semester
+                    )
+                );
         public async Task<int> Create(Student student, CancellationToken cancellationToken)
         {
             await _students.AddAsync(student, cancellationToken);
@@ -19,21 +33,11 @@ namespace EduApoyos.Infrastructure.Repositories
             return student.Id;
         }
 
+        public async Task<GetStudentResult?> GetById(GetStudentByIdSpecification specification, CancellationToken cancellationToken)
+            => await GetQuery(specification).FirstOrDefaultAsync(cancellationToken);
+
         public async Task<GetStudentResult?> GetByUserId(GetStudentByUserIdSpecification specification, CancellationToken cancellationToken)
-            => await _students
-            .Where(specification.Criteria)
-            .Select(s => new GetStudentResult(
-                s.Id,
-                s.UserId,
-                s.User != null ? s.User.FullName : "",
-                s.DocumentNumber, 
-                s.DocumentType, 
-                s.AcademicProgramId,
-                s.AcademicProgram != null ? s.AcademicProgram.Name : "",
-                s.Semester
-                )
-            )
-            .FirstOrDefaultAsync(cancellationToken);
+            => await GetQuery(specification).FirstOrDefaultAsync(cancellationToken);
 
         public async Task<PaginatedList<GetStudentResult>> GetStudents(GetStudentsSpecification specification, CancellationToken cancellationToken)
             => await _students

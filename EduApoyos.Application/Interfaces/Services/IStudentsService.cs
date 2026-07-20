@@ -1,5 +1,5 @@
-﻿using EduApoyos.Domain.Models;
-using EduApoyos.Domain.Common.Helpers;
+﻿using EduApoyos.Domain.Common.Helpers;
+using EduApoyos.Domain.Models;
 
 namespace EduApoyos.Application.Interfaces.Services
 {
@@ -7,6 +7,7 @@ namespace EduApoyos.Application.Interfaces.Services
     {
         Task<int> CreateStudent(CreateStudentRequest createStudentRequest, CancellationToken cancellationToken);
         Task<ErrorOr<PaginatedList<GetStudentResult>>> GetStudents(GetStudentRequest request, CancellationToken cancellationToken);
-        Task<ErrorOr<GetStudentResult>> GetStudentByUserId(int studentId, CancellationToken cancellationToken);
+        Task<ErrorOr<GetStudentResult?>> GetStudentByUserId(int studentId, CancellationToken cancellationToken);
+        Task<ErrorOr<GetStudentResult?>> GetStudentById(int studentId, CancellationToken cancellationToken);
     }
 }
