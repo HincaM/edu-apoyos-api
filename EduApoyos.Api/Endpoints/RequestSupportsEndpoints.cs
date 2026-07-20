@@ -55,8 +55,8 @@ namespace EduApoyos.Api.Endpoints
             return (await sender.Send(commandSend, cancellationToken)).Match(Results.Ok, Problem);
         }
 
-        private static async Task<IResult> GetRequestsSupportByStudentId(int id, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
-            => (await sender.Send(new GetRequestsSupportByStudentIdQuery(id, currentPage, pageSize), cancellationToken)).Match(Results.Ok, Problem);
+        private static async Task<IResult> GetRequestsSupportByStudentId(Status? status, TypeSupport? type, int id, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
+            => (await sender.Send(new GetRequestsSupportByStudentIdQuery(status, type, id, currentPage, pageSize), cancellationToken)).Match(Results.Ok, Problem);
         
     }
 }

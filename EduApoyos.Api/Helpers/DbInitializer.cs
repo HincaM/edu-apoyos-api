@@ -1,4 +1,7 @@
-﻿using EduApoyos.Infrastructure.Context;
+﻿using EduApoyos.Application.Common.Helpers;
+using EduApoyos.Domain.Common.Enums;
+using EduApoyos.Domain.Entities;
+using EduApoyos.Infrastructure.Context;
 
 namespace EduApoyos.Api.Helpers
 {
@@ -28,6 +31,23 @@ namespace EduApoyos.Api.Helpers
                         Name = "Medicina",
                         Description = "Programa clínico dedicado a la promoción de la salud, prevención, diagnóstico y tratamiento de enfermedades humanas, con un fuerte enfoque en el servicio y la ética médica."
                     }
+                );
+                context.SaveChanges();
+            }
+
+            var users = context.Set<User>();
+
+            if (!users.Any(u => u.Role == Role.Advisor))
+            {
+                var passwordHash = new PasswordHashHelper();
+                var advisorPassword = passwordHash.Hash("Advisor123*");
+
+                users.AddRange(
+                    User.Create("Laura Gómez", "laura.gomez@eduapoyos.com", advisorPassword, Role.Advisor),
+                    User.Create("Carlos Rodríguez", "carlos.rodriguez@eduapoyos.com", advisorPassword, Role.Advisor),
+                    User.Create("María Fernández", "maria.fernandez@eduapoyos.com", advisorPassword, Role.Advisor),
+                    User.Create("Andrés Torres", "andres.torres@eduapoyos.com", advisorPassword, Role.Advisor),
+                    User.Create("Paula Ramírez", "paula.ramirez@eduapoyos.com", advisorPassword, Role.Advisor)
                 );
                 context.SaveChanges();
             }

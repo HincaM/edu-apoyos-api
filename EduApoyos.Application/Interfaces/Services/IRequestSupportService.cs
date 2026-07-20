@@ -1,5 +1,4 @@
-﻿using EduApoyos.Domain.Common.Enums;
-using EduApoyos.Domain.Common.Helpers;
+﻿using EduApoyos.Domain.Common.Helpers;
 using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Specifications.RequestsSupports;
 
@@ -7,7 +6,7 @@ namespace EduApoyos.Application.Interfaces.Services
 {
     public interface IRequestSupportService
     {
-        Task<ErrorOr<bool>> ChangeStatusRequestSupport(int requestSupportId, Status status, CancellationToken cancellationToken);
+        Task<ErrorOr<bool>> ChangeStatusRequestSupport(ChangeStatusRequestSupportRequest request, CancellationToken cancellationToken);
         Task<ErrorOr<int>> CreateSupport(CreateRequestSupportRequest request, CancellationToken cancellationToken);
         Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequests(GetRequestsSupportRequest request, CancellationToken cancellationToken);
         Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequestsSupportByStudentId(GetRequestsSupportByStudentIdSpecification specification, CancellationToken cancellationToken);

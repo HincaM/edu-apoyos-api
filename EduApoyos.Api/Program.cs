@@ -41,6 +41,7 @@ builder.Services.AddSwaggerGen(config =>
 });
 
 builder.Services
+    .AddHttpContextAccessor()
     .AddApplication()
     .AddInfrastructure("LocalConnection")
     .AddCors(opt => opt.AddPolicy("AllowAll", policy =>

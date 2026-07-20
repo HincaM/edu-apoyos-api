@@ -4,6 +4,18 @@ namespace EduApoyos.Domain.Entities
 {
     public class StatusHistory
     {
+        private StatusHistory() { }
+        public static StatusHistory Create(int requestSupportId, Status previousState, Status newState, int userId, string? observation)
+            => new()
+            {
+                RequestSupportId = requestSupportId,
+                PreviousState = previousState,
+                NewState = newState,
+                ChangeDate = DateTime.Now,
+                UserId = userId,
+                Observation = observation
+            };
+
         public int Id { get; set; }
         public int RequestSupportId { get; set; }
         public Status PreviousState { get; set; }

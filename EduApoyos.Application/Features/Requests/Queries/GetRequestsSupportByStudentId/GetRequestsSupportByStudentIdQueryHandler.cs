@@ -10,7 +10,12 @@ namespace EduApoyos.Application.Features.Requests.Queries.GetRequestsSupportBySt
     {
         public async Task<ErrorOr<PaginatedList<RequestSupportDto>>> Handle(GetRequestsSupportByStudentIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _requestSupportService.GetRequestsSupportByStudentId(new GetRequestsSupportByStudentIdSpecification(request.StudentId, request.CurrentPage, request.PageSize), cancellationToken);
+            var result = await _requestSupportService.GetRequestsSupportByStudentId(new GetRequestsSupportByStudentIdSpecification(
+                request.StudentId, 
+                request.Status,
+                request.Type,
+                request.CurrentPage, 
+                request.PageSize), cancellationToken);
             if (result.IsError) return result.Errors;
 
             return result.Value.Adapt<PaginatedList<RequestSupportDto>>();

@@ -26,6 +26,7 @@ namespace EduApoyos.Infrastructure
                 .AddScoped<IStudentRepository, StudentRepository>()
                 .AddScoped<IRequestSupportRepository, RequestSupportRepository>()
                 .AddScoped<IAcademicProgramRepository, AcademicProgramRepository>()
+                .AddScoped<IStatusHistoryRepository, StatusHistoryRepository>()
 
                 .AddScoped<IStudentsService, StudentsService>()
                 .AddScoped<IUserService, UserService>()
