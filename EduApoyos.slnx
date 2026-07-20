@@ -3,5 +3,6 @@
   <Project Path="EduApoyos.Application/EduApoyos.Application.csproj" Id="4a9cefe8-c1da-4f12-812e-91a4017d3858" />
   <Project Path="EduApoyos.Domain/EduApoyos.Domain.csproj" Id="d1bf814d-22cd-4384-9eeb-9a8dec0a9725" />
   <Project Path="EduApoyos.Infrastructure/EduApoyos.Infrastructure.csproj" Id="6e513d2f-5b38-4157-ad35-a49bfb5dc66a" />
+  <Project Path="EduApoyos.IntegrationTest/EduApoyos.IntegrationTest.csproj" />
   <Project Path="EduApoyos.Test/EduApoyos.Test.csproj" Id="5cabaf0e-17e3-4e83-8708-386b1c03241b" />
 </Solution>

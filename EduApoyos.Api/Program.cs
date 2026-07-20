@@ -94,3 +94,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapEndpointsModule();
 app.Run();
+
+public partial class Program { }

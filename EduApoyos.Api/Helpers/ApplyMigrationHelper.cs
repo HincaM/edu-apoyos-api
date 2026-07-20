@@ -15,8 +15,7 @@ namespace EduApoyos.Api.Helpers
                     var context = services.GetRequiredService<EduApoyosContext>();
                     context.Database.Migrate();
 
-                    if (app.Environment.IsDevelopment())
-                        DbInitializer.Seed(context);
+                    DbInitializer.Seed(context);
                 }
                 catch (Exception ex)
                 {
