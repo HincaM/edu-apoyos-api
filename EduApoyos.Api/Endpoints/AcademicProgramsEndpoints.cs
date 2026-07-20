@@ -14,7 +14,7 @@ namespace EduApoyos.Api.Endpoints
             var group = app.MapGroup("/api/academic-programs").WithTags("AcademicPrograms");
 
             group.MapGet("/", GetAcademicPrograms)
-                .RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" })
+                .AllowAnonymous()
                 .WithGetAcademicProgramsDocs();
         }
 

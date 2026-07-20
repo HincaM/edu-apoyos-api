@@ -5,10 +5,13 @@ using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Repositories;
 using EduApoyos.Domain.Specifications;
 using Mapster;
+using System.Transactions;
 
 namespace EduApoyos.Infrastructure.Services
 {
-    public sealed class UserService(IUserRepository _userRepository) : IUserService
+    public sealed class UserService(
+        IUserRepository _userRepository,
+        IStudentRepository _studentRepository) : IUserService
     {
         public async Task<GetUserResult?> GetUserByEmail(string email, CancellationToken cancellationToken)
         {
@@ -24,9 +27,30 @@ namespace EduApoyos.Infrastructure.Services
 
         public async Task<ErrorOr<bool>> Register(RegisterRequest request, CancellationToken cancellationToken)
         {
-            PasswordHashHelper passwordHash = new();
-            var passHash = passwordHash.Hash(request.Password);
-            return await _userRepository.Create(User.Create(request.FullName, request.Email, passHash, request.Role), cancellationToken);
+            using (TransactionScope transaction = new(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                PasswordHashHelper passwordHash = new();
+                var passHash = passwordHash.Hash(request.Password);
+                var user = User.Create(request.FullName, request.Email, passHash, request.Role);
+                await _userRepository.Create(user, cancellationToken);
+
+                if (user.Id > 0)
+                {
+                    var saved = await _studentRepository.Create(Student.Create(
+                        user.Id,
+                        request.DocumentNumber,
+                        request.DocumentType,
+                        request.AcademicProgramId,
+                        request.Semester), cancellationToken);
+
+                    if (saved > 0)
+                        transaction.Complete();
+
+                    return true;
+                }
+
+                return false;
+            }
         }
 
         public async Task<ErrorOr<PaginatedList<GetAdvisorResult>>> GetAdvisors(GetAdvisorRequest request, CancellationToken cancellationToken)

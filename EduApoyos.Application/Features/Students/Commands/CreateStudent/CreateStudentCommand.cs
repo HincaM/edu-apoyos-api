@@ -1,3 +1,5 @@
-﻿namespace EduApoyos.Application.Features.Students.Commands.CreateStudent;
+﻿using EduApoyos.Domain.Common.Enums;
 
-public record CreateStudentCommand(string UserId, string DocumentNumber, int AcademicProgramId, int Semester) : IRequest<ErrorOr<int>>;
+namespace EduApoyos.Application.Features.Students.Commands.CreateStudent;
+
+public record CreateStudentCommand(string UserId, string DocumentNumber, DocumentType DocumentType, int AcademicProgramId, int Semester) : IRequest<ErrorOr<int>>;

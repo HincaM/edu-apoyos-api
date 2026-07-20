@@ -13,6 +13,7 @@ namespace EduApoyos.Test.Features.Auth.Commands.Login;
 public class LoginCommandHandlerTests
 {
     private readonly Mock<IUserService> _userServiceMock = new();
+    private readonly Mock<IStudentsService> _studentServiceMock = new();
     private readonly Mock<IOptions<TokenOption>> _options = new();
     private readonly TokenGeneratorHelper _tokenGeneratorHelper;
     private readonly LoginCommandHandler _handler;
@@ -22,7 +23,7 @@ public class LoginCommandHandlerTests
     {
         _options.Setup(o => o.Value).Returns(new TokenOption { ExpireMinutes = 60, Issuer = "issuer", Audience = "audience", Key = "supersecretkey12345678901234567890" });
         _tokenGeneratorHelper = new TokenGeneratorHelper(_options.Object);
-        _handler = new LoginCommandHandler(_userServiceMock.Object, _tokenGeneratorHelper);
+        _handler = new LoginCommandHandler(_userServiceMock.Object, _studentServiceMock.Object, _tokenGeneratorHelper);
     }
 
     [Fact]

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduApoyos.Infrastructure.Migrations
 {
     [DbContext(typeof(EduApoyosContext))]
-    [Migration("20260719202404_v1")]
+    [Migration("20260720030803_v1")]
     partial class v1
     {
         /// <inheritdoc />
@@ -141,6 +141,9 @@ namespace EduApoyos.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("DocumentType")
+                        .HasColumnType("int");
 
                     b.Property<int>("Semester")
                         .HasColumnType("int");

@@ -9,6 +9,9 @@ namespace EduApoyos.Application.Features.Students.Commands.CreateStudent
             RuleFor(x => x.DocumentNumber)
                 .NotEmpty().WithMessage("El número de documento es requerido.");
 
+            RuleFor(x => x.DocumentType)
+                .IsInEnum().WithMessage("El tipo de documento es requerido.");
+
             RuleFor(x => x.AcademicProgramId)
                 .NotEmpty().WithMessage("El ID del programa académico es requerido.");
 

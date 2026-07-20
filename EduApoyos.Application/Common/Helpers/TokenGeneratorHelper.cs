@@ -12,15 +12,18 @@ namespace EduApoyos.Application.Helpers
     public sealed class TokenGeneratorHelper(IOptions<TokenOption> _options)
     {
         private readonly TokenOption _tokenOption = _options.Value;
-        public string Generate(int userId, string email, Role role)
+        public string Generate(int userId, string email, Role role, string? studentId = null)
         {
             var claims = new List<Claim>
             {
                 new(ClaimTypes.Name, userId.ToString()),
                 new(ClaimTypes.Email, email),
-                new(ClaimTypes.Role, role.GetDescription())
+                new(ClaimTypes.Role, role.GetDescription()),
             };
-            
+
+            if(!string.IsNullOrEmpty(studentId))
+                claims.Add(new("Student", studentId));
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOption.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
             var token = new JwtSecurityToken(

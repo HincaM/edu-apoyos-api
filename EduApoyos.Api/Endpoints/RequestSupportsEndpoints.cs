@@ -28,12 +28,12 @@ namespace EduApoyos.Api.Endpoints
                 .RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" })
                 .WithGetByIdDocs();
             group.MapPatch("/{id}/estado", ChangeStatusRequestSupport)
-                .RequireAuthorization(RoleConstants.Advisor)
+                .RequireAuthorization(new AuthorizeAttribute { Roles = RoleConstants.Advisor })
                 .WithChangeStatusDocs();
 
             app.MapGet("api/students/{id}/requests", GetRequestsSupportByStudentId)
                 .WithTags("RequestsSupport")
-                .RequireAuthorization(RoleConstants.Student)
+                .RequireAuthorization(new AuthorizeAttribute { Roles = RoleConstants.Student })
                 .WithGetByStudentIdDocs();
         }
 
@@ -45,7 +45,7 @@ namespace EduApoyos.Api.Endpoints
 
         private static async Task<IResult> GetRequestSupportById(int id, IMediator sender, CancellationToken cancellationToken, ClaimsPrincipal user)
         {
-            var email = user.IsInRole("Estudiante") ? user.FindFirst(ClaimTypes.Email)?.Value : null;
+            var email = user.IsInRole(RoleConstants.Student) ? user.FindFirst(ClaimTypes.Email)?.Value : null;
             return (await sender.Send(new GetRequestSupportByIdQuery(id, email), cancellationToken)).Match(Results.Ok, Problem);
         }
 

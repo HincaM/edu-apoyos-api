@@ -7,5 +7,6 @@ namespace EduApoyos.Application.Interfaces.Services
     {
         Task<int> CreateStudent(CreateStudentRequest createStudentRequest, CancellationToken cancellationToken);
         Task<ErrorOr<PaginatedList<GetStudentResult>>> GetStudents(GetStudentRequest request, CancellationToken cancellationToken);
+        Task<ErrorOr<GetStudentResult>> GetStudentByUserId(int studentId, CancellationToken cancellationToken);
     }
 }

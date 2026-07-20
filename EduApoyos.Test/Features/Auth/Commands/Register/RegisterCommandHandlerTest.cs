@@ -21,7 +21,7 @@ namespace EduApoyos.Test.Features.Auth.Commands.Register
         public async Task RegisterUserStudentSuccess()
         {
             // Arrange
-            var command = new RegisterCommand("UserId", "UsuarioExistente", "test@example.com", "Password123!", Role.Student);
+            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UserId", "UsuarioExistente", "test@example.com", "Password123!", Role.Student);
             _userServiceMock
                 .Setup(s => s.Register(It.IsAny<RegisterRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
@@ -37,7 +37,7 @@ namespace EduApoyos.Test.Features.Auth.Commands.Register
         public async Task RegisterUserAdvisorSuccess()
         {
             // Arrange
-            var command = new RegisterCommand("UserId", "UsuarioExistente", "test@example.com", "Password123!", Role.Advisor);
+            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UserId", "UsuarioExistente", "test@example.com", "Password123!", Role.Advisor);
             _userServiceMock
                 .Setup(s => s.Register(It.IsAny<RegisterRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
@@ -53,7 +53,7 @@ namespace EduApoyos.Test.Features.Auth.Commands.Register
         public async Task RegisterUserInvalidaData()
         {
             // Arrange
-            var command = new RegisterCommand("UserId", "UsuarioExistente", "", "Password123!", Role.Student);
+            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UserId", "UsuarioExistente", "", "Password123!", Role.Student);
             _userServiceMock
                 .Setup(s => s.Register(It.IsAny<RegisterRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);

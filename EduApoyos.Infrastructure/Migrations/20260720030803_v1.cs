@@ -50,6 +50,7 @@ namespace EduApoyos.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     DocumentNumber = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    DocumentType = table.Column<int>(type: "int", nullable: false),
                     AcademicProgramId = table.Column<int>(type: "int", nullable: false),
                     Semester = table.Column<int>(type: "int", nullable: false)
                 },

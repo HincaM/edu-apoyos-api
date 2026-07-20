@@ -8,6 +8,7 @@ namespace EduApoyos.Domain.Repositories
     public interface IStudentRepository
     {
         Task<int> Create(Student student, CancellationToken cancellationToken);
-        Task<PaginatedList<GetStudentResult>> GetStudents(GetStudentsSpecification specification, CancellationToken cancellationToken);
+        Task<GetStudentResult> GetByUserId(GetStudentByUserIdSpecification specification, CancellationToken cancellationToken);
+        Task<PaginatedList<GetStudentResult?>> GetStudents(GetStudentsSpecification specification, CancellationToken cancellationToken);
     }
 }
