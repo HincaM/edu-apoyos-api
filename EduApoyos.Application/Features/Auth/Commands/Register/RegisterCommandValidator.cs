@@ -6,10 +6,6 @@ namespace EduApoyos.Application.Features.Auth.Commands.Register
     {
         public RegisterCommandValidator()
         {
-            RuleFor(x => x.UserId)
-                .NotEmpty().WithMessage("El id de usuario requerido.")
-                .MaximumLength(50).WithMessage("La cantidad de caracteres para usuario es de máximo 50.");
-
             RuleFor(x => x.FullName)
                 .NotEmpty().WithMessage("El nombre de usuario es requerido.")
                 .MaximumLength(200).WithMessage("La cantidad de caracteres para usuario es de máximo 200."); 

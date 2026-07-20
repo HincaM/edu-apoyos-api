@@ -6,12 +6,12 @@ using Moq;
 
 namespace EduApoyos.Test.Features.Auth.Commands.Register
 {
-    public class RegisterCommandHandlerTest
+    public class RegisterCommandHandlerTests
     {
         private readonly Mock<IUserService> _userServiceMock;
         private readonly RegisterCommandHandler _handler;
         private readonly RegisterCommandValidator _registerValidator = new();
-        public RegisterCommandHandlerTest()
+        public RegisterCommandHandlerTests()
         {
             _userServiceMock = new Mock<IUserService>();
             _handler = new RegisterCommandHandler(_userServiceMock.Object);
@@ -21,7 +21,7 @@ namespace EduApoyos.Test.Features.Auth.Commands.Register
         public async Task RegisterUserStudentSuccess()
         {
             // Arrange
-            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UserId", "UsuarioExistente", "test@example.com", "Password123!", Role.Student);
+            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UsuarioExistente", "test@example.com", "Password123!", Role.Student);
             _userServiceMock
                 .Setup(s => s.Register(It.IsAny<RegisterRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
@@ -37,7 +37,7 @@ namespace EduApoyos.Test.Features.Auth.Commands.Register
         public async Task RegisterUserAdvisorSuccess()
         {
             // Arrange
-            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UserId", "UsuarioExistente", "test@example.com", "Password123!", Role.Advisor);
+            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UsuarioExistente", "test@example.com", "Password123!", Role.Advisor);
             _userServiceMock
                 .Setup(s => s.Register(It.IsAny<RegisterRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
@@ -53,7 +53,7 @@ namespace EduApoyos.Test.Features.Auth.Commands.Register
         public async Task RegisterUserInvalidaData()
         {
             // Arrange
-            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UserId", "UsuarioExistente", "", "Password123!", Role.Student);
+            var command = new RegisterCommand("123456", DocumentType.Cedula, 1, 1, "UsuarioExistente", "", "Password123!", Role.Student);
             _userServiceMock
                 .Setup(s => s.Register(It.IsAny<RegisterRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
