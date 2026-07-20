@@ -9,8 +9,6 @@ namespace EduApoyos.Api.Helpers
     {
         public static void Seed(EduApoyosContext context)
         {
-            context.Database.EnsureCreated();
-
             var programs = context.Set<Domain.Entities.AcademicProgram>();
 
             if (!programs.Any())

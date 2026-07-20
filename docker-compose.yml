@@ -25,9 +25,19 @@ services:
         condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__EduApoyosConnection: "Server=sqlserver;Database=EduApoyosDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
+      ConnectionStrings__LocalConnection: "Server=sqlserver;Database=EduApoyosDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
     ports:
       - "8080:8080"
+
+  web:
+    build:
+      context: ../edu-apoyos-web
+      dockerfile: Dockerfile
+    container_name: edu-apoyos-web
+    depends_on:
+      - api
+    ports:
+      - "4000:4000"
 
 volumes:
   sqlserver-data:
