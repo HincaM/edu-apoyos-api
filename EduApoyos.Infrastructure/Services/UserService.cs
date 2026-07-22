@@ -3,7 +3,7 @@ using EduApoyos.Application.Interfaces.Services;
 using EduApoyos.Domain.Entities;
 using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Repositories;
-using EduApoyos.Domain.Specifications;
+using EduApoyos.Domain.Specifications.Users;
 using Mapster;
 using System.Transactions;
 

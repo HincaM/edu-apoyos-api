@@ -2,7 +2,7 @@
 using EduApoyos.Domain.Entities;
 using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Repositories;
-using EduApoyos.Domain.Specifications;
+using EduApoyos.Domain.Specifications.Students;
 
 namespace EduApoyos.Infrastructure.Services
 {

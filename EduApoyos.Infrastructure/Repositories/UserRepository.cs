@@ -2,7 +2,7 @@
 using EduApoyos.Domain.Entities;
 using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Repositories;
-using EduApoyos.Domain.Specifications;
+using EduApoyos.Domain.Specifications.Users;
 using EduApoyos.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,5 +27,8 @@ namespace EduApoyos.Infrastructure.Repositories
             .OrderBy(specification.OrderBy)
             .Select(u => new GetAdvisorResult(u.Id, u.FullName))
             .ToPaginatedListAsync(specification.CurrentPage, specification.PageSize, cancellationToken);
+
+        public async Task<User?> GetById(GetUserByIdSpecification specification, CancellationToken cancellationToken) 
+            => await _users.FirstOrDefaultAsync(specification.Criteria, cancellationToken);
     }
 }

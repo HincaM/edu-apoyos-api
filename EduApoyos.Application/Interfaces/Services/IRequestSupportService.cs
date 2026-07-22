@@ -8,6 +8,7 @@ namespace EduApoyos.Application.Interfaces.Services
     {
         Task<ErrorOr<bool>> ChangeStatusRequestSupport(ChangeStatusRequestSupportRequest request, CancellationToken cancellationToken);
         Task<ErrorOr<int>> CreateSupport(CreateRequestSupportRequest request, CancellationToken cancellationToken);
+        Task<ErrorOr<byte[]>> DownloadFile(int requestSupportId, CancellationToken cancellationToken);
         Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequests(GetRequestsSupportRequest request, CancellationToken cancellationToken);
         Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequestsSupportByStudentId(GetRequestsSupportByStudentIdSpecification specification, CancellationToken cancellationToken);
         Task<ErrorOr<GetRequestsSupportResult?>> GetRequestSupportById(int id, string? email, CancellationToken cancellationToken);

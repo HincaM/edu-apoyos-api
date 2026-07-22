@@ -1,7 +1,7 @@
 ﻿using EduApoyos.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace EduApoyos.Domain.Specifications
+namespace EduApoyos.Domain.Specifications.Students
 {
     public class GetStudentByUserIdSpecification : ISpecification<Student>
     {

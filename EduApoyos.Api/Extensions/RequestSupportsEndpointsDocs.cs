@@ -51,5 +51,15 @@ namespace EduApoyos.Api.Endpoints
                 .Produces<PaginatedList<RequestSupportDto>>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status401Unauthorized)
                 .ProducesProblem(StatusCodes.Status403Forbidden);
+
+        public static RouteHandlerBuilder DownloadRequestSupportByIdDocs(this RouteHandlerBuilder builder) =>
+            builder
+                .WithName("DownloadRequestSupportById")
+                .WithSummary("Descarga la constancia en PDF de una solicitud de apoyo")
+                .WithDescription("Asesor puede descargar cualquier solicitud. Estudiante solo puede descargar sus propias solicitudes.")
+                .Produces<string>(StatusCodes.Status200OK)
+                .ProducesProblem(StatusCodes.Status404NotFound)
+                .ProducesProblem(StatusCodes.Status401Unauthorized)
+                .ProducesProblem(StatusCodes.Status403Forbidden);
     }
 }

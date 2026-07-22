@@ -1,8 +1,10 @@
 ﻿using EduApoyos.Application.Interfaces.Services;
 using EduApoyos.Domain.Repositories;
+using EduApoyos.Domain.Services;
 using EduApoyos.Infrastructure.Context;
 using EduApoyos.Infrastructure.Repositories;
 using EduApoyos.Infrastructure.Services;
+using EduApoyos.Infrastructure.Services.External;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +34,7 @@ namespace EduApoyos.Infrastructure
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IRequestSupportService, RequestSupportService>()
                 .AddScoped<IAcademicProgramService, AcademicProgramService>()
+                .AddScoped<IManagementFilesService, ManagementFilesService>()
                 ;
         }   
     }

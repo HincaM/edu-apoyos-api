@@ -42,3 +42,8 @@ Para reiniciar con la base de datos limpia (borra el volumen `sqlserver-data`):
 docker compose down -v
 docker compose up --build
 
+## Datos para probar
+
+**Asesor:** usuario: laura.gomez@eduapoyos.com | contraseña: Advisor123*
+**Estudiante:** usuario: pablo.villamil@micorreo.com | contraseña: Estudent123*
+

@@ -1,8 +1,13 @@
-﻿using EduApoyos.Application.Interfaces.Services;
+﻿using EduApoyos.Application.Extensions;
+using EduApoyos.Application.Interfaces.Services;
 using EduApoyos.Domain.Entities;
 using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Repositories;
+using EduApoyos.Domain.Services;
+using EduApoyos.Domain.Specifications;
 using EduApoyos.Domain.Specifications.RequestsSupports;
+using EduApoyos.Domain.Specifications.Students;
+using EduApoyos.Domain.Specifications.Users;
 using Mapster;
 using System.Transactions;
 
@@ -11,7 +16,10 @@ namespace EduApoyos.Infrastructure.Services
     public sealed class RequestSupportService(
         IRequestSupportRepository _requestSupportRepository,
         IStatusHistoryRepository _statusHistoryRepository,
-        ICurrentUserService _currentUserService
+        IStudentRepository _studentRepository,
+        IUserRepository _userRepository,
+        ICurrentUserService _currentUserService,
+        IManagementFilesService _managementFilesService
         ) : IRequestSupportService
     {
         public async Task<ErrorOr<bool>> ChangeStatusRequestSupport(ChangeStatusRequestSupportRequest request, CancellationToken cancellationToken)
@@ -47,6 +55,27 @@ namespace EduApoyos.Infrastructure.Services
                 request.Description,
                 request.AdvisorId
                 ), cancellationToken);
+        }
+
+        public async Task<ErrorOr<byte[]>> DownloadFile(int requestSupportId, CancellationToken cancellationToken)
+        {
+            var request = await _requestSupportRepository.GetRequestById(new GetRequestSupportByIdSpecification(requestSupportId), cancellationToken);
+            var student = await _studentRepository.GetById(new GetStudentByIdSpecification(request.StudentId), cancellationToken);
+            var user = await _userRepository.GetById(new GetUserByIdSpecification(student.UserId), cancellationToken);
+
+            return _managementFilesService.CrearPdf(new RequestSupportConstancyInfo(
+                student.DocumentType.GetDescription(),
+                student.DocumentNumber,
+                student.UserName,
+                user.Email,
+                student.AcademicProgramName,
+                student.Semester,
+                request.TypeSupportDescription,
+                request.RequestedAmount,
+                request.Description,
+                request.StatusDescription,
+                request.ApplicationDate
+            ));
         }
 
         public async Task<ErrorOr<PaginatedList<GetRequestsSupportResult>>> GetRequests(GetRequestsSupportRequest request, CancellationToken cancellationToken)

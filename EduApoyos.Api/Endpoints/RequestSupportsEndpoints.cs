@@ -1,6 +1,7 @@
 ﻿using EduApoyos.Api.Helpers;
 using EduApoyos.Application.Features.Requests.Commands.ChangeStatusRequestSupport;
 using EduApoyos.Application.Features.Requests.Commands.CreateRequest;
+using EduApoyos.Application.Features.Requests.Commands.DownloadRequestSupportById;
 using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupport;
 using EduApoyos.Application.Features.Requests.Queries.GetRequestsSupportByStudentId;
 using EduApoyos.Application.Features.Requests.Queries.GetRequestSupportById;
@@ -35,6 +36,9 @@ namespace EduApoyos.Api.Endpoints
                 .WithTags("RequestsSupport")
                 .RequireAuthorization(new AuthorizeAttribute { Roles = RoleConstants.Student })
                 .WithGetByStudentIdDocs();
+            group.MapGet("/{id}/download", DownloadRequestSupportById)
+                .RequireAuthorization(new AuthorizeAttribute { Roles = $"{RoleConstants.Advisor},{RoleConstants.Student}" })
+                .DownloadRequestSupportByIdDocs();
         }
 
         private static async Task<IResult> GetRequestsSupport(Status? status, TypeSupport? type, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
@@ -57,6 +61,9 @@ namespace EduApoyos.Api.Endpoints
 
         private static async Task<IResult> GetRequestsSupportByStudentId(Status? status, TypeSupport? type, int id, int currentPage, int pageSize, IMediator sender, CancellationToken cancellationToken)
             => (await sender.Send(new GetRequestsSupportByStudentIdQuery(status, type, id, currentPage, pageSize), cancellationToken)).Match(Results.Ok, Problem);
-        
+
+        private static async Task<IResult> DownloadRequestSupportById(int id, IMediator sender, CancellationToken cancellationToken, ClaimsPrincipal user)
+            => (await sender.Send(new DownloadRequestSupportByIdQuery(id), cancellationToken))
+                .Match(bytes => Results.File(bytes, "application/pdf", $"constancia-{id}.pdf"), Problem);
     }
 }

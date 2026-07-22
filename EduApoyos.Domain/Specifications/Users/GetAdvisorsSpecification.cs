@@ -2,7 +2,7 @@ using EduApoyos.Domain.Common.Enums;
 using EduApoyos.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace EduApoyos.Domain.Specifications
+namespace EduApoyos.Domain.Specifications.Users
 {
     public class GetAdvisorsSpecification : ISpecification<User>
     {

@@ -2,6 +2,7 @@
 using EduApoyos.Domain.Models;
 using EduApoyos.Domain.Repositories;
 using EduApoyos.Domain.Specifications;
+using EduApoyos.Domain.Specifications.Students;
 using EduApoyos.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
